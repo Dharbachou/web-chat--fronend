@@ -1,8 +1,17 @@
 import React from 'react';
+import Navbar from "./components/Navbar/Navbar";
 
-const Chat = () => {
+import './Chat.scss';
+
+const Chat = (props) => {
   return (
-    <h1> Chat screen </h1>
+      <div id='chat-container'>
+        <Navbar/>
+        <div id='chat-wrap'>
+            Data
+        </div>
+      </div>
+
   );
 };
 
