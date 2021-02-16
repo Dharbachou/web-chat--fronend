@@ -12,7 +12,7 @@ const API = axios.create({
 
 API.interceptors.response.use(
     res => {
-
+        return res;
     },
     err => {
         if (err.response.status !== 401) {

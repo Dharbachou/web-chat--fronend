@@ -14,7 +14,7 @@ const Login = ({history}) => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        dispatch(login({email, password}, history))
+        dispatch(login({email, password}, history));
             // .then(() => { history.push('/')});
     }
 
