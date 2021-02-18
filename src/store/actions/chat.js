@@ -2,6 +2,12 @@ import ChatService from "../../services/chatService";
 
 export const FETCH_CHATS = 'FETCH_CHATS';
 export const SET_CURRENT_CHAT = 'SET_CURRENT_CHAT';
+export const FRIEND_ONLINE = 'FRIEND_ONLINE';
+export const FRIENDS_ONLINE = 'FRIENDS_ONLINE';
+export const FRIENDS_OFFLINE = 'FRIENDS_OFFLINE';
+export const SET_SOCKET = 'SET_SOCKET';
+export const RECEIVED_MESSAGE = 'RECEIVED_MESSAGE';
+export const SENDER_TYPING = 'SENDER_TYPING';
 
 export const fetchChats = () => dispatch => {
     return ChatService.fetchChats()
@@ -29,4 +35,46 @@ export const setCurrentChat = (chat) => dispatch => {
         type: SET_CURRENT_CHAT,
         payload: chat
     });
-}
+};
+
+export const onlineFriend = (friend) => dispatch => {
+    dispatch({
+        type: FRIEND_ONLINE,
+        payload: friend
+    });
+};
+
+export const onlineFriends = (friends) => dispatch => {
+    dispatch({
+        type: FRIENDS_ONLINE,
+        payload: friends
+    });
+};
+
+export const offlineFriend = (friend) => dispatch => {
+    dispatch({
+        type: FRIENDS_OFFLINE,
+        payload: friend
+    });
+};
+
+export const setSocket = (socket) => dispatch => {
+    dispatch({
+        type: SET_SOCKET,
+        payload: socket
+    });
+};
+
+export const receivedMessage = (message, userId) => dispatch => {
+    dispatch({
+        type: RECEIVED_MESSAGE,
+        payload: {message, userId}
+    });
+};
+
+export const senderTyping = (sender) => dispatch => {
+    dispatch({
+        type: SENDER_TYPING,
+        payload: sender
+    });
+};

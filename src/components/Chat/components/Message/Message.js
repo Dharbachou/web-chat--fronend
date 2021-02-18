@@ -21,7 +21,7 @@ const Message = ({user, chat, index, message}) => {
                         : null
                 }
                 {
-                    message.type = "text"
+                    message.type === "text"
                         ? <p className='m-0'>{message.message}</p>
                         : <img src={message.message} alt='user upload'/>
                 }
