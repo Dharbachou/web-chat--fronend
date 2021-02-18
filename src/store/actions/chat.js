@@ -1,4 +1,5 @@
 import ChatService from "../../services/chatService";
+import Chat from "../../components/Chat/Chat";
 
 export const FETCH_CHATS = 'FETCH_CHATS';
 export const SET_CURRENT_CHAT = 'SET_CURRENT_CHAT';
@@ -8,6 +9,9 @@ export const FRIENDS_OFFLINE = 'FRIENDS_OFFLINE';
 export const SET_SOCKET = 'SET_SOCKET';
 export const RECEIVED_MESSAGE = 'RECEIVED_MESSAGE';
 export const SENDER_TYPING = 'SENDER_TYPING';
+export const PAGINATE_MESSAGES = 'PAGINATE_MESSAGES';
+export const INCREMENT_SCROLL = 'INCREMENT_SCROLL';
+
 
 export const fetchChats = () => dispatch => {
     return ChatService.fetchChats()
@@ -76,5 +80,29 @@ export const senderTyping = (sender) => dispatch => {
     dispatch({
         type: SENDER_TYPING,
         payload: sender
+    });
+};
+
+export const paginateMessage = (id, page) => dispatch => {
+    return ChatService.paginateMessages(id, page)
+        .then(({messages, pagination}) => {
+            if (typeof messages !== 'undefined' && messages.length > 0) {
+                console.log(messages);
+                messages.reverse();
+                dispatch({
+                    type: PAGINATE_MESSAGES,
+                    payload: {messages, id, pagination}
+                });
+                return true;
+            }
+            return false;
+        }).catch(err => {
+            throw err;
+        });
+};
+
+export const incrementScroll = () => dispatch => {
+    dispatch({
+        type: INCREMENT_SCROLL,
     });
 };

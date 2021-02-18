@@ -2,7 +2,8 @@ import {
     FETCH_CHATS,
     FRIEND_ONLINE,
     FRIENDS_OFFLINE,
-    FRIENDS_ONLINE,
+    FRIENDS_ONLINE, INCREMENT_SCROLL,
+    PAGINATE_MESSAGES,
     RECEIVED_MESSAGE, SENDER_TYPING,
     SET_CURRENT_CHAT,
     SET_SOCKET
@@ -31,7 +32,6 @@ const chatReducer = (state = initialState, action) => {
             }
         }
         case SET_CURRENT_CHAT: {
-            console.log('payload', payload);
             return {
                 ...state,
                 currentChat: payload,
@@ -198,6 +198,44 @@ const chatReducer = (state = initialState, action) => {
                 senderTyping: payload,
                 scrollBottom: state.scrollBottom + (payload.typing ? 1 : 0)
             };
+        }
+        case PAGINATE_MESSAGES: {
+            const { messages, id, pagination } = payload;
+
+            let currentChatCopy = { ...state.currentChat };
+
+            const chatsCopy = state.chats.map(chat => {
+                if (chat.id === id) {
+                    const shifted = [...messages, ...chat.Messages];
+
+                    currentChatCopy = {
+                        ...currentChatCopy,
+                        Messages: shifted,
+                        Pagination: pagination
+                    }
+
+                    return {
+                        ...chat,
+                        Messages: shifted,
+                        Pagination: pagination
+                    }
+                }
+
+                return chat;
+            })
+
+            return {
+                ...state,
+                chats: chatsCopy,
+                currentChat: currentChatCopy
+            }
+        }
+        case INCREMENT_SCROLL: {
+            return {
+                ...state,
+                scrollBottom: state.scrollBottom + 1,
+                newMessage: {chatId: null, seen: true}
+            }
         }
         default: {
             return state

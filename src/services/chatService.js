@@ -6,7 +6,7 @@ const ChatService = {
             .then(({data}) => {
                 return data;
             }).catch(err => {
-               return err;
+                return err;
             });
     },
 
@@ -23,6 +23,20 @@ const ChatService = {
             }).catch(err => {
                 return err;
             });
+    },
+
+    paginateMessages: (id, page) => {
+        return API.get(
+            '/chats/messages',
+            {
+                params: {
+                id, page
+            }
+        }).then(({data}) => {
+            return data;
+        }).catch(err => {
+            return err;
+        });
     }
 };
 
