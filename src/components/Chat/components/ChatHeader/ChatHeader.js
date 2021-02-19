@@ -13,8 +13,6 @@ const ChatHeader = ({chat}) => {
 
     const [showChatOptions, setShowChatOptions] = useState(false);
     const [showAddFriendModal, setShowAddFriendModal] = useState(false);
-    const [showLeaveChatModal, setShowLeaveChatModal] = useState(false);
-    const [showDeleteChatModal, setShowDeleteChatModal] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
 
     const socket = useSelector(state => state.chatReducer.socket);
